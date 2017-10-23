@@ -43,7 +43,10 @@ module.exports.get = (event, context, callback) => {
     if (err) {
       const response = {
         statusCode: errorHandler(err).statusCode,
-        body: JSON.stringify(errorHandler(err).message)
+        body: {
+          status: errorHandler(err).statusCode,
+          message: errorHandler(err).message
+        }
       }
       callback(null, response);
     } else {
