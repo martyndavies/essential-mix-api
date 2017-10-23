@@ -8,6 +8,10 @@ mixes.setSettings({
   paginationLimitedTo: 1500
 });
 
+const errorHandler = (err) => {
+  return err;
+}
+
 module.exports.list = (event, context, callback) => {
   var browseMixes = mixes.browseAll();
   var listofMixes = [];
@@ -32,11 +36,18 @@ module.exports.get = (event, context, callback) => {
   }
 
   mixes.getObject(params.id, function(err, content) {
-    const response = {
-      statusCode: 200,
-      body: JSON.stringify(content)
+
+    if (err) {
+      const response = errorHandler(err);
+      callback(null, response);
+    } else {
+      const response = {
+        statusCode: 200,
+        body: JSON.stringify(content)
+      }
+      callback(null, response);
     }
-    callback(null, response);
+
   });
 };
 
