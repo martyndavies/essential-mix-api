@@ -9,7 +9,10 @@ mixes.setSettings({
 });
 
 const errorHandler = (err) => {
-  return err;
+  return {
+    statusCode: err.statusCode,
+    message: err.message
+  }
 }
 
 module.exports.list = (event, context, callback) => {
@@ -38,7 +41,10 @@ module.exports.get = (event, context, callback) => {
   mixes.getObject(params.id, function(err, content) {
 
     if (err) {
-      const response = errorHandler(err);
+      const response = {
+        statusCode: errorHandler(err).statusCode,
+        body: JSON.stringify(errorHandler(err).message)
+      }
       callback(null, response);
     } else {
       const response = {
