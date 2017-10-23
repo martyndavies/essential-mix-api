@@ -62,22 +62,44 @@ module.exports.get = (event, context, callback) => {
 
 module.exports.create = (event, context, callback) => {
   mixes.addObjects(event, function(err, content) {
-    const response = {
-      statusCode: 200,
-      body: JSON.stringify(content)
+    if (err) {
+      const response = {
+        statusCode: errorHandler(err).statusCode,
+        body: {
+          status: errorHandler(err).statusCode,
+          message: errorHandler(err).message
+        }
+      }
+      callback(null, response);
+    } else {
+      const response = {
+        statusCode: 200,
+        body: JSON.stringify(content)
+      }
+      callback(null, response);
     }
-    callback(null, response);
   });
 
 };
 
 module.exports.update = (event, context, callback) => {
   mixes.partial_update_object(event, function(err, content) {
-    const response = {
-      statusCode: 200,
-      body: JSON.stringify(content)
+    if (err) {
+      const response = {
+        statusCode: errorHandler(err).statusCode,
+        body: {
+          status: errorHandler(err).statusCode,
+          message: errorHandler(err).message
+        }
+      }
+      callback(null, response);
+    } else {
+      const response = {
+        statusCode: 200,
+        body: JSON.stringify(content)
+      }
+      callback(null, response);
     }
-    callback(null, response);
   });
 
 };
