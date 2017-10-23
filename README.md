@@ -58,3 +58,12 @@ To add a new mix, you'll first need to build an object that represents the same 
 ```
 POST https://cxqxc7ixtj.execute-api.us-east-1.amazonaws.com/dev/api/
 ```
+
+The minimum you need to POST here would be:
+
+```
+{
+  mix_by: "",
+  broadcast_date: "2017-10-21T00:00:00.000Z"
+}
+```
