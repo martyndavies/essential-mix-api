@@ -8,7 +8,7 @@ mixes.setSettings({
   paginationLimitedTo: 1500
 });
 
-module.exports.mixes = (event, context, callback) => {
+module.exports.list = (event, context, callback) => {
   var browseMixes = mixes.browseAll();
   var listofMixes = [];
 
@@ -24,4 +24,12 @@ module.exports.mixes = (event, context, callback) => {
     callback(null, response);
   });
 
+};
+
+module.exports.get = (event, context, callback) => {
+  callback(null, response);
+};
+
+module.exports.create = (event, context, callback) => {
+  callback(null, response);
 };

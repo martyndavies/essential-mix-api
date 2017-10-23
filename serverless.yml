@@ -4,24 +4,43 @@ service: essential-mix-api
 provider:
   name: aws
   runtime: nodejs6.10
-
 # you can overwrite defaults here
   stage: dev
 
 functions:
-  mixes:
-    handler: handler.mixes
-
+  getAllMixes:
+    handler: mix.list
+    description: Return all the mixes in the index
     events:
       - http:
-          path: mixes
+          path: api
           method: get
-
-
-#    Define function environment variables here
     environment:
       algolia_key: ${file(./serverless.env.yml):algolia.key}
       algolia_index: ${file(./serverless.env.yml):algolia.index}
+
+  getSingleMix:
+    handler: mix.get
+    description: Get mix details by ID
+    events:
+      - http:
+          path: api/{id}
+          method: get
+    environment:
+      algolia_key: ${file(./serverless.env.yml):algolia.key}
+      algolia_index: ${file(./serverless.env.yml):algolia.index}
+
+  createNewMix:
+      handler: mix.create
+      description: Create a new mix in the index
+      events:
+        - http:
+            path: api/
+            method: post
+      environment:
+        algolia_key: ${file(./serverless.env.yml):algolia.key}
+        algolia_index: ${file(./serverless.env.yml):algolia.index}
+
 
 plugins:
   - serverless-offline
