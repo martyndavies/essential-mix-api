@@ -61,8 +61,18 @@ module.exports.get = (event, context, callback) => {
 };
 
 module.exports.create = (event, context, callback) => {
-  console.log(event);
   mixes.addObjects(event, function(err, content) {
+    const response = {
+      statusCode: 200,
+      body: JSON.stringify(content)
+    }
+    callback(null, response);
+  });
+
+};
+
+module.exports.update = (event, context, callback) => {
+  mixes.partial_update_object(event, function(err, content) {
     const response = {
       statusCode: 200,
       body: JSON.stringify(content)

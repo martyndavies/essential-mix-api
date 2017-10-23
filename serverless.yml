@@ -31,15 +31,28 @@ functions:
       algolia_index: ${file(./serverless.env.yml):algolia.index}
 
   createNewMix:
-      handler: mix.create
-      description: Create a new mix in the index
-      events:
-        - http:
-            path: api/
-            method: post
-      environment:
-        algolia_key: ${file(./serverless.env.yml):algolia.key}
-        algolia_index: ${file(./serverless.env.yml):algolia.index}
+    handler: mix.create
+    description: Create a new mix in the index
+    events:
+      - http:
+          path: api/
+          method: post
+    environment:
+      algolia_key: ${file(./serverless.env.yml):algolia.key}
+      algolia_index: ${file(./serverless.env.yml):algolia.index}
+
+
+  updateMix:
+    handler: mix.update
+    description: Update a mix by ID
+    events:
+      - http:
+          path: api/{id}
+          method: put
+    environment:
+      algolia_key: ${file(./serverless.env.yml):algolia.key}
+      algolia_index: ${file(./serverless.env.yml):algolia.index}
+
 
 
 plugins:
