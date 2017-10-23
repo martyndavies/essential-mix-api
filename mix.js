@@ -27,9 +27,27 @@ module.exports.list = (event, context, callback) => {
 };
 
 module.exports.get = (event, context, callback) => {
-  callback(null, response);
+  const params =  {
+    id: event.pathParameters.id
+  }
+
+  mixes.getObject(params.id, function(err, content) {
+    const response = {
+      statusCode: 200,
+      body: JSON.stringify(content)
+    }
+    callback(null, response);
+  });
 };
 
 module.exports.create = (event, context, callback) => {
-  callback(null, response);
+  console.log(event);
+  index.addObjects(event, function(err, content) {
+    const response = {
+      statusCode: 200,
+      body: JSON.stringify(content)
+    }
+    callback(null, response);
+  });
+
 };
