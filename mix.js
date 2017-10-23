@@ -59,7 +59,7 @@ module.exports.get = (event, context, callback) => {
 
 module.exports.create = (event, context, callback) => {
   console.log(event);
-  index.addObjects(event, function(err, content) {
+  mixes.addObjects(event, function(err, content) {
     const response = {
       statusCode: 200,
       body: JSON.stringify(content)
